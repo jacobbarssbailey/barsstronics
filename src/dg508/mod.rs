@@ -40,18 +40,16 @@ where
     }
     pub fn set_active(&mut self, channel: u8) {
         self.channel = channel;
-        fn bit_set(value: u8, pin: u8) -> bool {
-            (value & (1 << pin)) > 0
-        }
-        match bit_set(channel, 0) {
+        let bit_set = |selector: u8| (channel & (1 << selector)) > 0;
+        match bit_set(0) {
             true => self.select1.set_high().ok(),
             false => self.select1.set_low().ok(),
         };
-        match bit_set(channel, 1) {
+        match bit_set(1) {
             true => self.select2.set_high().ok(),
             false => self.select2.set_low().ok(),
         };
-        match bit_set(channel, 2) {
+        match bit_set(2) {
             true => self.select3.set_high().ok(),
             false => self.select3.set_low().ok(),
         };
