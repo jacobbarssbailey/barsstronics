@@ -54,15 +54,14 @@ where
             false => self.select3.set_low().ok(),
         };
     }
+    pub fn increment(&mut self) {
+        self.set_active((self.channel + 1) % 8);
+    }
+    pub fn decrement(&mut self) {
+        self.set_active((self.channel - 1) % 8);
+    }
+    pub fn get_active(&mut self) -> u8 {
+        self.channel
+    }
 }
 
-//struct ActivePort(u8);
-//impl ActivePort {
-//    fn new(port: u8) -> Option<ActivePort> {
-//        if port <= 8 {
-//            Some(ActivePort(port))
-//        } else {
-//            None
-//        }
-//    }
-//}
